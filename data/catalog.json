@@ -1,0 +1,449 @@
+{
+  "title": "园区研发项目的支出形成仓",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "orders",
+      "description": "采购行原始承诺。",
+      "columns": [
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "consumable或service或equipment或installation",
+          "nullable": true
+        },
+        {
+          "name": "asset_id",
+          "type": "string",
+          "description": "资产或空",
+          "nullable": true
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "description": "数量",
+          "nullable": true
+        },
+        {
+          "name": "unit_price",
+          "type": "number",
+          "description": "原币单价",
+          "nullable": true
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "description": "币种",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "订购日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "line_id"
+      ],
+      "references": [],
+      "path": "data/orders.csv",
+      "row_count": 4,
+      "sha256": "b14c55dbaabf3872aa22f214d26f93af19df7137a2013fcd3936ad44688ca0bb"
+    },
+    {
+      "name": "funding",
+      "description": "采购预算出资比例。",
+      "columns": [
+        {
+          "name": "fund_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "采购行",
+          "nullable": true
+        },
+        {
+          "name": "project",
+          "type": "string",
+          "description": "项目",
+          "nullable": true
+        },
+        {
+          "name": "share",
+          "type": "number",
+          "description": "份额",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "fund_id"
+      ],
+      "references": [
+        {
+          "column": "line_id",
+          "target_table": "orders",
+          "target_column": "line_id"
+        }
+      ],
+      "path": "data/funding.csv",
+      "row_count": 6,
+      "sha256": "d0c75f416825090d75792754383ccfdcd16e8da123d1e4e1f18632045135a348"
+    },
+    {
+      "name": "receipts",
+      "description": "真实收退货，负量仅此表明确return才表示退。",
+      "columns": [
+        {
+          "name": "receipt_id",
+          "type": "string",
+          "description": "回执",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "receive或return",
+          "nullable": true
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "description": "正数量",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "receipt_id"
+      ],
+      "references": [
+        {
+          "column": "line_id",
+          "target_table": "orders",
+          "target_column": "line_id"
+        }
+      ],
+      "path": "data/receipts.csv",
+      "row_count": 5,
+      "sha256": "94d63c46f783d2100dbce644480692a4dd5beececfd32d562772020d75cf1945"
+    },
+    {
+      "name": "acceptances",
+      "description": "形成支出资格，退回后接受量须独立核对。",
+      "columns": [
+        {
+          "name": "acceptance_id",
+          "type": "string",
+          "description": "验收",
+          "nullable": true
+        },
+        {
+          "name": "receipt_id",
+          "type": "string",
+          "description": "收货",
+          "nullable": true
+        },
+        {
+          "name": "accepted_qty",
+          "type": "number",
+          "description": "本次确认数量",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "验收日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "acceptance_id"
+      ],
+      "references": [
+        {
+          "column": "receipt_id",
+          "target_table": "receipts",
+          "target_column": "receipt_id"
+        }
+      ],
+      "path": "data/acceptances.csv",
+      "row_count": 4,
+      "sha256": "1784364a26447318a8e6393f78819828e355babf9ebac1ba2de4842b3e6ecaa3"
+    },
+    {
+      "name": "documents",
+      "description": "票与现金分别独立。",
+      "columns": [
+        {
+          "name": "document_id",
+          "type": "string",
+          "description": "单据",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "invoice或credit或payment或refund",
+          "nullable": true
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "原币正金额",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "发生日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "document_id"
+      ],
+      "references": [
+        {
+          "column": "line_id",
+          "target_table": "orders",
+          "target_column": "line_id"
+        }
+      ],
+      "path": "data/documents.csv",
+      "row_count": 7,
+      "sha256": "16afd513f789bc43b665ee999280fc8a7994e62657738eec9583932d473ec69a"
+    },
+    {
+      "name": "assets",
+      "description": "内部启用，不是法定会计规定。",
+      "columns": [
+        {
+          "name": "asset_id",
+          "type": "string",
+          "description": "资产",
+          "nullable": true
+        },
+        {
+          "name": "ready_at",
+          "type": "date",
+          "description": "启用日",
+          "nullable": true
+        },
+        {
+          "name": "useful_months",
+          "type": "integer",
+          "description": "使用月",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "asset_id"
+      ],
+      "references": [],
+      "path": "data/assets.csv",
+      "row_count": 1,
+      "sha256": "1c97525ea39e3f8ea37f04d1c5c61d8da02396bca7577f3d41bfe06ac16c075e"
+    },
+    {
+      "name": "usage",
+      "description": "使用比例覆盖不足保留未分摊。",
+      "columns": [
+        {
+          "name": "usage_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "asset_id",
+          "type": "string",
+          "description": "资产",
+          "nullable": true
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "description": "年月",
+          "nullable": true
+        },
+        {
+          "name": "project",
+          "type": "string",
+          "description": "项目",
+          "nullable": true
+        },
+        {
+          "name": "hours",
+          "type": "number",
+          "description": "小时",
+          "nullable": true
+        },
+        {
+          "name": "coverage_fraction",
+          "type": "number",
+          "description": "全资产资料覆盖率",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "usage_id"
+      ],
+      "references": [
+        {
+          "column": "asset_id",
+          "target_table": "assets",
+          "target_column": "asset_id"
+        }
+      ],
+      "path": "data/usage.csv",
+      "row_count": 4,
+      "sha256": "6969992f1bd6a665d1a5f84e611f86e624e12566b330b6c6d4dbc10e4d65a293"
+    },
+    {
+      "name": "organizations",
+      "description": "项目组织时态。",
+      "columns": [
+        {
+          "name": "relation_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "project",
+          "type": "string",
+          "description": "项目",
+          "nullable": true
+        },
+        {
+          "name": "organization",
+          "type": "string",
+          "description": "组织",
+          "nullable": true
+        },
+        {
+          "name": "start",
+          "type": "date",
+          "description": "起",
+          "nullable": true
+        },
+        {
+          "name": "end",
+          "type": "date",
+          "description": "止",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "relation_id"
+      ],
+      "references": [],
+      "path": "data/organizations.csv",
+      "row_count": 3,
+      "sha256": "0c2cf1410ce1b1fc42ba7d4d556ee3d969a7e6835787b3d48d267828f3a85b41"
+    },
+    {
+      "name": "fx",
+      "description": "业务当天汇率。",
+      "columns": [
+        {
+          "name": "currency",
+          "type": "string",
+          "description": "币种",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "日",
+          "nullable": true
+        },
+        {
+          "name": "cny_per_unit",
+          "type": "number",
+          "description": "人民币每单位",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "currency",
+        "date"
+      ],
+      "references": [],
+      "path": "data/fx.csv",
+      "row_count": 6,
+      "sha256": "6decc533c8aa8bb9fabb0a40e6c79cde17c8e75c12af7611d85072d396b7eb87"
+    },
+    {
+      "name": "revisions",
+      "description": "后续订单修订。",
+      "columns": [
+        {
+          "name": "revision_id",
+          "type": "string",
+          "description": "修订",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "行",
+          "nullable": true
+        },
+        {
+          "name": "new_total_quantity",
+          "type": "number",
+          "description": "新总量",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "业务日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "revision_id"
+      ],
+      "references": [
+        {
+          "column": "line_id",
+          "target_table": "orders",
+          "target_column": "line_id"
+        }
+      ],
+      "path": "data/revisions.csv",
+      "row_count": 1,
+      "sha256": "c17ff82a3cc82d73bb3111db501d6887a27f33c10fde6c5495a84f52f177721e"
+    }
+  ]
+}

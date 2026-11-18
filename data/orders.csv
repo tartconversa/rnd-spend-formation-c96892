@@ -1,0 +1,5 @@
+line_id,kind,asset_id,quantity,unit_price,currency,date
+L1,equipment,AS1,1,10000,USD,2026-10-01
+L2,installation,AS1,1,2000,CNY,2026-10-05
+L3,consumable,,100,10,CNY,2026-10-01
+L4,service,,10,100,CNY,2026-10-02

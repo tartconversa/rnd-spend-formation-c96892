@@ -1,0 +1,8 @@
+document_id,line_id,kind,amount,date
+D1,L1,payment,5000,2026-10-05
+D2,L1,invoice,10000,2026-10-18
+D3,L1,payment,5000,2026-10-20
+D4,L3,invoice,600,2026-10-18
+D5,L3,credit,100,2026-10-22
+D6,L3,refund,80,2026-10-25
+D7,L2,invoice,2000,2026-10-28

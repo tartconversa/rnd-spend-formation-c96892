@@ -1,0 +1,7 @@
+fund_id,line_id,project,share
+F1,L1,A,0.6
+F2,L1,B,0.4
+F3,L2,A,0.6
+F4,L2,B,0.4
+F5,L3,A,1
+F6,L4,B,1

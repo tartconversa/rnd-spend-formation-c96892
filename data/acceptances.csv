@@ -1,0 +1,5 @@
+acceptance_id,receipt_id,accepted_qty,date
+A1,R1,1,2026-10-15
+A2,R2,50,2026-10-16
+A3,R3,5,2026-10-18
+A4,R5,1,2026-10-25

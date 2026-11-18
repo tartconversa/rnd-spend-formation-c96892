@@ -1,0 +1,5 @@
+usage_id,asset_id,period,project,hours,coverage_fraction
+U1,AS1,2026-11,A,30,0.8
+U2,AS1,2026-11,B,50,0.8
+U3,AS1,2026-12,A,60,1
+U4,AS1,2026-12,B,40,1

@@ -1,0 +1,4 @@
+relation_id,project,organization,start,end
+O1,A,ORG1,2026-01-01,2026-11-01
+O2,A,ORG2,2026-11-01,2027-01-01
+O3,B,ORG1,2026-01-01,2027-01-01
